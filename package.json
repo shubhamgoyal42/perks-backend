@@ -1,0 +1,19 @@
+{
+  "name": "perks-backend",
+  "version": "1.0.0",
+  "description": "The backend for perks app; a project for ETHGlobal Online 2023",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shubhamgoyal42/perks-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shubhamgoyal42/perks-backend/issues"
+  },
+  "homepage": "https://github.com/shubhamgoyal42/perks-backend#readme"
+}
