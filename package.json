@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/shubhamgoyal42/perks-backend/issues"
   },
-  "homepage": "https://github.com/shubhamgoyal42/perks-backend#readme"
+  "homepage": "https://github.com/shubhamgoyal42/perks-backend#readme",
+  "dependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@openzeppelin/contracts": "^5.0.0",
+    "hardhat": "^2.18.1"
+  }
 }
