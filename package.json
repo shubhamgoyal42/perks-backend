@@ -19,6 +19,7 @@
   "dependencies": {
     "@nomiclabs/hardhat-ethers": "^2.2.3",
     "@openzeppelin/contracts": "^5.0.0",
+    "@uniswap/v4-core": "github:shubhamgoyal42/v4-core",
     "hardhat": "^2.18.1"
   },
   "devDependencies": {
