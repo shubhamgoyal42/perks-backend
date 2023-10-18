@@ -10,14 +10,13 @@ import {PerksToken} from "./PerksToken.sol";
 
 contract PerksVault is Ownable {
     IERC20 public USDC;
-    IERC20 public sDAI;
     IPoolManager public uniswapPoolManager;
     PerksToken public perksToken;
     PoolKey public uniswapPoolKey;
 
     mapping(address => uint256) public userUSDCAmount;
     mapping(address => uint256) public storeUsdcAmount;
-    mapping(address => bool) public whitelistedStores;
+    mapping(address => bool) public whitelistedStores; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!! ask CHATGT how to get getAllStores? !!!!!!!!!!!!!!!!!!!!!!!!!!
     mapping(address => uint256) public rewardFraction; // base 10e6
 
     mapping(address => uint256) public lastTxTime;
@@ -35,13 +34,9 @@ contract PerksVault is Ownable {
     event PerksBurnt(address indexed user, uint256 amount);
 
     constructor(
-        address _usdc,
-        address _sDAI, // 0xD8134205b0328F5676aaeFb3B2a0DC15f4029d8C
         address _uniswapPoolManager,
         address _perksToken
     ) Ownable(msg.sender) {
-        USDC = IERC20(_usdc);
-        sDAI = IERC20(_sDAI);
         uniswapPoolManager = IPoolManager(_uniswapPoolManager);
         perksToken = PerksToken(_perksToken);
     }
@@ -68,9 +63,6 @@ contract PerksVault is Ownable {
 
         // Swap USDC for sDAI using Uniswap
         USDC.approve(address(uniswapPoolManager), amount);
-        address[] memory path = new address[](2);
-        path[0] = address(USDC);
-        path[1] = address(sDAI);
         // @todo
         // uniswapPoolManager.swapExactTokensForTokens(amount, 0, path, address(this), block.timestamp + 15 minutes);
         IPoolManager.SwapParams memory swapParams = IPoolManager.SwapParams({

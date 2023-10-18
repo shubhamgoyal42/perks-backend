@@ -9,12 +9,15 @@ async function main() {
 
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 main().catch((error) => {
     console.error(error);
     process.exitCode = 1;
 });
 
 
+// sepolia
 // 0xf290BE43b65583E6a45Ee13bD042081784a45a45
+
+
+// mumbai
+// 0xEc0941828C0C8af69525F797efe9512de0b4A51a

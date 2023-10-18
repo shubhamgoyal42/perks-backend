@@ -31,6 +31,15 @@ const config: HardhatUserConfig = {
       ],
       chainId: 11155111,
       // gasPrice: 20000000000, // You can adjust the gas price or other parameters if necessary
+    },
+    mumbai: {
+      url: "https://polygon-mumbai.infura.io/v3/06800f8293644a29b29acbc1148042f1",
+      accounts: [
+        pk, // admin
+        "f2b0d0d488b324545d32b0a82e6a0097fffa6c7e0cc794d1e8ad515f5331a1fc" // nft #1 holder
+      ],
+      chainId: 80001,
+      // gasPrice: 20000000000, // You can adjust the gas price or other parameters if necessary
     }
   },
 
