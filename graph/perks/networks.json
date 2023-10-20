@@ -1,0 +1,8 @@
+{
+  "sepolia": {
+    "PerksVault": {
+      "address": "0x8078cB27dD51266950FE0317CB314F16f11Fac8b",
+      "startBlock": 0
+    }
+  }
+}

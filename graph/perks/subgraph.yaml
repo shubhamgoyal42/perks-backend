@@ -1,0 +1,45 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: PerksVault
+    network: sepolia
+    source:
+      address: "0x8078cB27dD51266950FE0317CB314F16f11Fac8b"
+      abi: PerksVault
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - OwnershipTransferred
+        - PaidToStore
+        - PerksBurnt
+        - PerksEarned
+        - PerksRedeemed
+        - StoreAdded
+        - StoreRemoved
+        - USDCDeposited
+      abis:
+        - name: PerksVault
+          file: ./abis/PerksVault.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: PaidToStore(indexed address,indexed address,uint256)
+          handler: handlePaidToStore
+        - event: PerksBurnt(indexed address,uint256)
+          handler: handlePerksBurnt
+        - event: PerksEarned(indexed address,uint256)
+          handler: handlePerksEarned
+        - event: PerksRedeemed(indexed address,uint256)
+          handler: handlePerksRedeemed
+        - event: StoreAdded(indexed address,uint256)
+          handler: handleStoreAdded
+        - event: StoreRemoved(indexed address)
+          handler: handleStoreRemoved
+        - event: USDCDeposited(indexed address,uint256)
+          handler: handleUSDCDeposited
+      file: ./src/perks-vault.ts

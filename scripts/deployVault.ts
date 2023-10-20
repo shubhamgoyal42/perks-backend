@@ -3,22 +3,22 @@ import hardhat,  { ethers } from "hardhat";
 
 async function main() {
     const [admin, nftOwner1] = await ethers.getSigners()
-    const perksVaultContract = await ethers.getContractFactory("PerksVault")
+    // const perksVaultContract = await ethers.getContractFactory("PerksVault")
     // const perksVault = await perksVaultContract.deploy(
-    //     "0x64255ed21366DB43d89736EE48928b890A84E2Cb", // pool manager
-    //     "0xf290BE43b65583E6a45Ee13bD042081784a45a45", // perks token
+    //     "0x5FF8780e4D20e75B8599A9C4528D8ac9682e5c89", // pool manager
+    //     "0xEc0941828C0C8af69525F797efe9512de0b4A51a", // perks token
     //     )
 
     // console.log(perksVault.address)
 
-    const perksVault = await ethers.getContractAt("PerksVault", "0x4a4e97E89e63438811f7646E7802300d5Fd4Bb3F")
+    const perksVault = await ethers.getContractAt("PerksVault", "0x8078cB27dD51266950FE0317CB314F16f11Fac8b")
 
     const poolKey = {
-        currency0: "0x07B48B11F2493D108d9ebbF8A684d00f72EAcFd5",
-        currency1: "0xf290BE43b65583E6a45Ee13bD042081784a45a45",
+        currency0: "0xD9c0C74348C11a1ef99F954576AAB9E6b07455A8",
+        currency1: "0xEc0941828C0C8af69525F797efe9512de0b4A51a",
         fee: 3000,
         tickSpacing: 60,
-        hooks: "0x0870573e62D36fd5Ec21D309E55c657ea46f128B",
+        hooks: "0x08E834a760D976ae5d869F795AA8776509B09F03",
     }
     let tx = await perksVault.setUniswapPoolId(poolKey)
     console.log(tx)
@@ -30,14 +30,6 @@ main().catch((error) => {
 });
 
 
-// 0x4a4e97E89e63438811f7646E7802300d5Fd4Bb3F
+// sepolia 0x4a4e97E89e63438811f7646E7802300d5Fd4Bb3F
 
-
-
-
-
-
-// address constant PerksToken = address(0xf290BE43b65583E6a45Ee13bD042081784a45a45);
-// address constant USDC = address(0x07B48B11F2493D108d9ebbF8A684d00f72EAcFd5); // custom
-// ERC721OwnershipHook constant hook = ERC721OwnershipHook(address(0x0870573e62D36fd5Ec21D309E55c657ea46f128B));
-// poolKey = PoolKey(Currency.wrap(USDC), Currency.wrap(PerksToken), 3000, 60, IHooks(hook));
+// mumbai 0x8078cB27dD51266950FE0317CB314F16f11Fac8b

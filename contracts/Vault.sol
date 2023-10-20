@@ -24,7 +24,7 @@ contract PerksVault is Ownable {
 
     uint256[50] private __gap;
 
-    event StoreAdded(address indexed store, uint256 rewardFraction);
+    event StoreAdded(address indexed store, uint256 rewardFraction, uint256 latitude, uint256 longitude);
     event StoreRemoved(address indexed store);
     event USDCDeposited(address indexed user, uint256 amount);
     event PaidToStore(address indexed store, address indexed user, uint256 amount);
@@ -41,11 +41,11 @@ contract PerksVault is Ownable {
         perksToken = PerksToken(_perksToken);
     }
 
-    function whitelisteStore(address store, uint256 _rewardFraction) external onlyOwner {
+    function whitelisteStore(address store, uint256 _rewardFraction, uint256 latitude, uint256 longitude) external onlyOwner {
         whitelistedStores[store] = true;
         rewardFraction[store] = _rewardFraction;
 
-        emit StoreAdded(store, _rewardFraction);
+        emit StoreAdded(store, _rewardFraction, latitude, longitude);
     }
 
     function deleteStore(address store) external onlyOwner {

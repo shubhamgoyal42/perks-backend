@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract USDC is ERC20, Ownable {
     uint256[50] private __gap;
 
-    constructor () ERC20('PerksToken', 'PRKS') Ownable(msg.sender) {
+    constructor () ERC20('USDC', 'USDC') Ownable(msg.sender) {
         _mint(msg.sender, 1000000 * 10 ** decimals());  // 1M
     }
 
