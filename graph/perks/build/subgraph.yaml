@@ -1,6 +1,6 @@
 specVersion: 0.0.5
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: PerksNFT
@@ -20,7 +20,7 @@ dataSources:
         - Transfer
       abis:
         - name: PerksNFT
-          file: ./abis/PerksNFT.json
+          file: PerksNFT/abis/PerksNFT.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,indexed uint256)
           handler: handleApproval
@@ -30,7 +30,7 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: ./src/perks-nft.ts
+      file: PerksNFT/PerksNFT.wasm
   - kind: ethereum
     name: PerksVault
     network: mumbai
@@ -53,7 +53,7 @@ dataSources:
         - USDCDeposited
       abis:
         - name: PerksVault
-          file: ./abis/PerksVault.json
+          file: PerksVault/abis/PerksVault.json
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
@@ -71,4 +71,4 @@ dataSources:
           handler: handleStoreRemoved
         - event: USDCDeposited(indexed address,uint256)
           handler: handleUSDCDeposited
-      file: ./src/perks-vault.ts
+      file: PerksVault/PerksVault.wasm

@@ -3,6 +3,9 @@
     "PerksNFT": {
       "address": "0x5911C7265d0f16964821D58879e34Cdc7e47Ae7F",
       "startBlock": 41342721
+    },
+    "PerksVault": {
+      "address": "0x8078cB27dD51266950FE0317CB314F16f11Fac8b"
     }
   }
 }
