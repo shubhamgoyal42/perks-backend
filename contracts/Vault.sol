@@ -10,13 +10,11 @@ import {PerksToken} from "./PerksToken.sol";
 
 contract PerksVault is Ownable {
     IERC20 public USDC;
-    IPoolManager public uniswapPoolManager;
     PerksToken public perksToken;
-    PoolKey public uniswapPoolKey;
 
     mapping(address => uint256) public userUSDCAmount;
     mapping(address => uint256) public storeUsdcAmount;
-    mapping(address => bool) public whitelistedStores; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!! ask CHATGT how to get getAllStores? !!!!!!!!!!!!!!!!!!!!!!!!!!
+    mapping(address => bool) public whitelistedStores;
     mapping(address => uint256) public rewardFraction; // base 10e6
 
     mapping(address => uint256) public lastTxTime;
@@ -31,13 +29,10 @@ contract PerksVault is Ownable {
 
     event PerksEarned(address indexed user, uint256 amount);
     event PerksRedeemed(address indexed user, uint256 amount);
-    event PerksBurnt(address indexed user, uint256 amount);
 
     constructor(
-        address _uniswapPoolManager,
         address _perksToken
     ) Ownable(msg.sender) {
-        uniswapPoolManager = IPoolManager(_uniswapPoolManager);
         perksToken = PerksToken(_perksToken);
     }
 
@@ -54,23 +49,9 @@ contract PerksVault is Ownable {
         emit StoreRemoved(store);
     }
 
-    function setUniswapPoolId(PoolKey calldata poolKey) external onlyOwner {
-        uniswapPoolKey = poolKey;
-    }
-
     function depositUSDC(uint256 amount) external {
+        USDC.approve(address(this), amount);
         USDC.transferFrom(msg.sender, address(this), amount);
-
-        // Swap USDC for sDAI using Uniswap
-        USDC.approve(address(uniswapPoolManager), amount);
-        // @todo
-        // uniswapPoolManager.swapExactTokensForTokens(amount, 0, path, address(this), block.timestamp + 15 minutes);
-        IPoolManager.SwapParams memory swapParams = IPoolManager.SwapParams({
-            zeroForOne: true,
-            amountSpecified: int256(amount),
-            sqrtPriceLimitX96: 0});
-        // IPoolManager.SwapParams
-        uniswapPoolManager.swap(uniswapPoolKey, swapParams, bytes(''));
 
         userUSDCAmount[msg.sender] += amount;
 
@@ -96,28 +77,9 @@ contract PerksVault is Ownable {
     function redeemPerksTokens(uint256 perksAmount, address store) external {
         require(whitelistedStores[store], "Store is not whitelisted");
 
-        if(block.timestamp - lastTxTime[msg.sender] > 90 days) {
-            // Burn the perks tokens if last transaction time > 90 days
-            burnPerksTokens(msg.sender);
-        }
-
+        perksToken.approve(address(this), perksAmount);
         perksToken.transferFrom(msg.sender, store, perksAmount);
 
         emit PerksRedeemed(msg.sender, perksAmount);
-    }
-
-    function burnPerksTokens(address user) public {
-        uint256 amountToBurn = (perksToken.balanceOf(user) * 2) / 10; // 20% of the perks amount
-        _burnPerksToken(user, amountToBurn);
-    }
-
-    function _burnPerksToken(address user, uint256 perksAmount) internal {
-        // Burn the perks tokens if last transaction time > 90 days
-        require(lastBurnTime[user] < block.timestamp - 90 days, "Can burn only after 90 days");
-        if(block.timestamp - lastTxTime[msg.sender] > 90 days) {
-            // Burn the perks tokens if last transaction time > 90 days
-            perksToken.burn(user, perksAmount);
-            emit PerksBurnt(user, perksAmount);
-        }
     }
 }
