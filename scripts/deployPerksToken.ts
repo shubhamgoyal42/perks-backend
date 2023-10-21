@@ -7,10 +7,10 @@ async function main() {
 
     // console.log(perksToken.address)
 
-    const perksToken = await ethers.getContractAt("PerksToken", "0xEc0941828C0C8af69525F797efe9512de0b4A51a")
+    const perksToken = await ethers.getContractAt("PerksToken", "0x6f5756Ce3047Cc216c8582B1379E1DD117d720B1")
     
-    let tx = await perksToken.setVault("0x8078cB27dD51266950FE0317CB314F16f11Fac8b")
-    console.log(tx)
+    await perksToken.transfer("0x75BE87691E2F11de7d29C33926e35eb2b4CEcb5C", "1000000000000000000000")
+    await perksToken.transfer("0x0a22Ca95Bc9f40b6DE9d9bCF980C60F1957f0c3A", "1000000000000000000000")
 
 }
 
@@ -26,3 +26,7 @@ main().catch((error) => {
 
 // mumbai
 // 0xEc0941828C0C8af69525F797efe9512de0b4A51a
+
+
+// mumbai (again) - updated version
+// 0x6f5756Ce3047Cc216c8582B1379E1DD117d720B1

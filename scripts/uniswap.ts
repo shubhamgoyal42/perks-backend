@@ -20,6 +20,9 @@ async function main() {
     const provider = new ethers.providers.JsonRpcProvider("https://polygon-mumbai.infura.io/v3/06800f8293644a29b29acbc1148042f1")
     const perksVault = await ethers.getContractAt("PerksVault", "0x8078cB27dD51266950FE0317CB314F16f11Fac8b")
     const poolManager = await ethers.getContractAt("IPoolManager", "0x5FF8780e4D20e75B8599A9C4528D8ac9682e5c89")
+    const testPoolManager = await ethers.getContractAt("PoolModifyPositionTest", "0x092D53306f9Df9eeD35efec24c31Ca32000033BC")
+    const perksToken = await ethers.getContractAt("PerksToken", "0xEc0941828C0C8af69525F797efe9512de0b4A51a")
+    const usdc = await ethers.getContractAt("USDC", "0xD9c0C74348C11a1ef99F954576AAB9E6b07455A8")
     // const poolManager2 = new ethers.Contract(
     //     "0x5FF8780e4D20e75B8599A9C4528D8ac9682e5c89",
     //     poolManagerABI,
@@ -27,24 +30,28 @@ async function main() {
     // )
     // console.log({ poolManager2 })
 
+    await perksToken.approve(testPoolManager.address, expandTo18Decimals(10000))
+    await usdc.approve(testPoolManager.address, expandTo18Decimals(10000))
+    console.log('approved')
+
     const poolKey = await perksVault.uniswapPoolKey()
     console.log({ poolKey })
 
-    const poolKeyString = JSON.stringify(poolKey);
+    // const poolKeyString = JSON.stringify(poolKey);
 
     // Converting string to bytes
-    const poolKeyBytes = Buffer.from(poolKeyString);
+    // const poolKeyBytes = Buffer.from(poolKeyString);
 
-    // Hashing the bytes using keccak256
-    const hash = ethers.utils.keccak256(poolKeyBytes);
+    // // Hashing the bytes using keccak256
+    // const hash = ethers.utils.keccak256(poolKeyBytes);
 
-    console.log({ hash })
+    // console.log({ hash })
 
-    const hashBytes = ethers.utils.arrayify(hash)
-    console.log({ hashBytes })
+    // const hashBytes = ethers.utils.arrayify(hash)
+    // console.log({ hashBytes })
 
-    const hashBytes32 = ethers.utils.hexZeroPad(hash, 32);
-    console.log({ hashBytes32 })
+    // const hashBytes32 = ethers.utils.hexZeroPad(hash, 32);
+    // console.log({ hashBytes32 })
 
     const poolId = getPoolId({
         currency0: poolKey.currency0,
@@ -72,11 +79,16 @@ async function main() {
         liquidityDelta: expandTo18Decimals(100),
     }
 
-    const tx = await poolManager.connect(admin).modifyPosition(poolKey, modifyPositionParams, '0x00', { gasLimit: 1000000 })
-    console.log(tx)
-    await tx.wait()
-
-
+    try {
+      const tx = await testPoolManager.modifyPosition(poolKey, modifyPositionParams, '0x00', { gasLimit: 1000000 })
+      console.log(tx)
+      const receipt = await tx.wait()
+      console.log(receipt.logs)
+      
+    } catch (error: any) {
+      console.error(error)      
+      console.log(error.receipt.logs)      
+    }
 }
 
 function expandTo18Decimals(n: number): BigNumber {
