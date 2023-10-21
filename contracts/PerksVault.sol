@@ -17,9 +17,6 @@ contract PerksVault is Ownable {
     mapping(address => bool) public whitelistedStores;
     mapping(address => uint256) public rewardFraction; // base 10e6
 
-    mapping(address => uint256) public lastTxTime;
-    mapping(address => uint256) public lastBurnTime;
-
     uint256[50] private __gap;
 
     event StoreAdded(address indexed store, uint256 rewardFraction, uint256 latitude, uint256 longitude);
@@ -64,8 +61,6 @@ contract PerksVault is Ownable {
 
         storeUsdcAmount[store] += usdcAmount;
         userUSDCAmount[msg.sender] -= usdcAmount;
-
-        lastTxTime[msg.sender] = block.timestamp;
 
         uint256 perksTokenAmount = usdcAmount * rewardFraction[store] / 10e6;
         perksToken.transferFrom(store, msg.sender, perksTokenAmount);
