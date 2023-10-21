@@ -3,6 +3,7 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/interfaces/IERC1271.sol";
@@ -15,7 +16,7 @@ import "./interfaces/IERC6551Account.sol";
 import "./lib/MinimalReceiver.sol";
 import "./lib/ERC6551AccountLib.sol";
 
-contract ERC6551Account is IERC165, IERC1271, IERC6551Account {
+contract ERC6551Account is IERC165, IERC1271, IERC6551Account, IERC721Receiver {
     uint256 public nonce;
 
     receive() external payable {}
@@ -77,5 +78,14 @@ contract ERC6551Account is IERC165, IERC1271, IERC6551Account {
         }
 
         return "";
+    }
+
+    function onERC721Received(
+        address,
+        address,
+        uint256,
+        bytes calldata
+    ) external returns (bytes4) {
+        return IERC721Receiver.onERC721Received.selector;
     }
 }

@@ -9,7 +9,7 @@ import {PoolKey} from "@uniswap/v4-core/contracts/types/PoolKey.sol";
 import {PerksToken} from "./PerksToken.sol";
 
 contract PerksVault is Ownable {
-    IERC20 public USDC;
+    IERC20 public usdc;
     PerksToken public perksToken;
 
     mapping(address => uint256) public userUSDCAmount;
@@ -19,7 +19,7 @@ contract PerksVault is Ownable {
 
     uint256[50] private __gap;
 
-    event StoreAdded(address indexed store, uint256 rewardFraction, uint256 latitude, uint256 longitude);
+    event StoreAdded(address indexed store, uint256 rewardFraction, int256 latitude, int256 longitude);
     event StoreRemoved(address indexed store);
     event USDCDeposited(address indexed user, uint256 amount);
     event PaidToStore(address indexed store, address indexed user, uint256 amount);
@@ -28,12 +28,14 @@ contract PerksVault is Ownable {
     event PerksRedeemed(address indexed user, uint256 amount);
 
     constructor(
-        address _perksToken
+        address _perksToken,
+        address _usdc
     ) Ownable(msg.sender) {
         perksToken = PerksToken(_perksToken);
+        usdc = IERC20(_usdc);
     }
 
-    function whitelisteStore(address store, uint256 _rewardFraction, uint256 latitude, uint256 longitude) external onlyOwner {
+    function whitelisteStore(address store, uint256 _rewardFraction, int256 latitude, int256 longitude) external onlyOwner {
         whitelistedStores[store] = true;
         rewardFraction[store] = _rewardFraction;
 
@@ -47,8 +49,7 @@ contract PerksVault is Ownable {
     }
 
     function depositUSDC(uint256 amount) external {
-        USDC.approve(address(this), amount);
-        USDC.transferFrom(msg.sender, address(this), amount);
+        usdc.transferFrom(msg.sender, address(this), amount);
 
         userUSDCAmount[msg.sender] += amount;
 
@@ -72,7 +73,6 @@ contract PerksVault is Ownable {
     function redeemPerksTokens(uint256 perksAmount, address store) external {
         require(whitelistedStores[store], "Store is not whitelisted");
 
-        perksToken.approve(address(this), perksAmount);
         perksToken.transferFrom(msg.sender, store, perksAmount);
 
         emit PerksRedeemed(msg.sender, perksAmount);
