@@ -5,7 +5,7 @@ import {
   clearStore,
   beforeAll,
   afterAll
-} from "matchstick-as/assembly/index"
+} from "matchstick-as"
 import { Address, BigInt } from "@graphprotocol/graph-ts"
 import { AccountCreated } from "../generated/schema"
 import { AccountCreated as AccountCreatedEvent } from "../generated/ERC6551Registry/ERC6551Registry"
