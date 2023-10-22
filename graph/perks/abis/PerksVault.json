@@ -1,12 +1,19 @@
 [
   {
     "inputs": [
+      { "internalType": "address", "name": "_perksToken", "type": "address" },
+      { "internalType": "address", "name": "_usdc", "type": "address" },
+      { "internalType": "address", "name": "_perksNFT", "type": "address" },
       {
         "internalType": "address",
-        "name": "_uniswapPoolManager",
+        "name": "_erc6551Registry",
         "type": "address"
       },
-      { "internalType": "address", "name": "_perksToken", "type": "address" }
+      {
+        "internalType": "address payable",
+        "name": "_erc6551Account",
+        "type": "address"
+      }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -85,25 +92,6 @@
         "type": "uint256"
       }
     ],
-    "name": "PerksBurnt",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
     "name": "PerksEarned",
     "type": "event"
   },
@@ -137,9 +125,27 @@
       },
       {
         "indexed": false,
+        "internalType": "address",
+        "name": "storeNFT",
+        "type": "address"
+      },
+      {
+        "indexed": false,
         "internalType": "uint256",
         "name": "rewardFraction",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "int256",
+        "name": "latitude",
+        "type": "int256"
+      },
+      {
+        "indexed": false,
+        "internalType": "int256",
+        "name": "longitude",
+        "type": "int256"
       }
     ],
     "name": "StoreAdded",
@@ -178,24 +184,6 @@
     "type": "event"
   },
   {
-    "inputs": [],
-    "name": "USDC",
-    "outputs": [
-      { "internalType": "contract IERC20", "name": "", "type": "address" }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "user", "type": "address" }
-    ],
-    "name": "burnPerksTokens",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [
       { "internalType": "address", "name": "store", "type": "address" }
     ],
@@ -214,16 +202,28 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "name": "lastBurnTime",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [],
+    "name": "erc6551Account",
+    "outputs": [
+      {
+        "internalType": "contract ERC6551Account",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "name": "lastTxTime",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [],
+    "name": "erc6551Registry",
+    "outputs": [
+      {
+        "internalType": "contract ERC6551Registry",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -242,6 +242,15 @@
     "name": "payToStore",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "perksNFT",
+    "outputs": [
+      { "internalType": "contract PerksNFT", "name": "", "type": "address" }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -278,41 +287,23 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "components": [
-          {
-            "internalType": "Currency",
-            "name": "currency0",
-            "type": "address"
-          },
-          {
-            "internalType": "Currency",
-            "name": "currency1",
-            "type": "address"
-          },
-          { "internalType": "uint24", "name": "fee", "type": "uint24" },
-          { "internalType": "int24", "name": "tickSpacing", "type": "int24" },
-          {
-            "internalType": "contract IHooks",
-            "name": "hooks",
-            "type": "address"
-          }
-        ],
-        "internalType": "struct PoolKey",
-        "name": "poolKey",
-        "type": "tuple"
-      }
-    ],
-    "name": "setUniswapPoolId",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "storeNFTs",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "name": "storeUsdcAmount",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "tba",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -327,22 +318,9 @@
   },
   {
     "inputs": [],
-    "name": "uniswapPoolKey",
+    "name": "usdc",
     "outputs": [
-      { "internalType": "Currency", "name": "currency0", "type": "address" },
-      { "internalType": "Currency", "name": "currency1", "type": "address" },
-      { "internalType": "uint24", "name": "fee", "type": "uint24" },
-      { "internalType": "int24", "name": "tickSpacing", "type": "int24" },
-      { "internalType": "contract IHooks", "name": "hooks", "type": "address" }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "uniswapPoolManager",
-    "outputs": [
-      { "internalType": "contract IPoolManager", "name": "", "type": "address" }
+      { "internalType": "contract IERC20", "name": "", "type": "address" }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -357,11 +335,14 @@
   {
     "inputs": [
       { "internalType": "address", "name": "store", "type": "address" },
+      { "internalType": "address", "name": "_storeNFT", "type": "address" },
       {
         "internalType": "uint256",
         "name": "_rewardFraction",
         "type": "uint256"
-      }
+      },
+      { "internalType": "int256", "name": "latitude", "type": "int256" },
+      { "internalType": "int256", "name": "longitude", "type": "int256" }
     ],
     "name": "whitelisteStore",
     "outputs": [],

@@ -1,7 +1,6 @@
 import {
   OwnershipTransferred as OwnershipTransferredEvent,
   PaidToStore as PaidToStoreEvent,
-  PerksBurnt as PerksBurntEvent,
   PerksEarned as PerksEarnedEvent,
   PerksRedeemed as PerksRedeemedEvent,
   StoreAdded as StoreAddedEvent,
@@ -11,7 +10,6 @@ import {
 import {
   OwnershipTransferred,
   PaidToStore,
-  PerksBurnt,
   PerksEarned,
   PerksRedeemed,
   StoreAdded,
@@ -40,20 +38,6 @@ export function handlePaidToStore(event: PaidToStoreEvent): void {
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.store = event.params.store
-  entity.user = event.params.user
-  entity.amount = event.params.amount
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handlePerksBurnt(event: PerksBurntEvent): void {
-  let entity = new PerksBurnt(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
   entity.user = event.params.user
   entity.amount = event.params.amount
 
@@ -97,7 +81,10 @@ export function handleStoreAdded(event: StoreAddedEvent): void {
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.store = event.params.store
+  entity.storeNFT = event.params.storeNFT
   entity.rewardFraction = event.params.rewardFraction
+  entity.latitude = event.params.latitude
+  entity.longitude = event.params.longitude
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

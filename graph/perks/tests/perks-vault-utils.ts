@@ -3,7 +3,6 @@ import { ethereum, Address, BigInt } from "@graphprotocol/graph-ts"
 import {
   OwnershipTransferred,
   PaidToStore,
-  PerksBurnt,
   PerksEarned,
   PerksRedeemed,
   StoreAdded,
@@ -56,24 +55,6 @@ export function createPaidToStoreEvent(
   return paidToStoreEvent
 }
 
-export function createPerksBurntEvent(
-  user: Address,
-  amount: BigInt
-): PerksBurnt {
-  let perksBurntEvent = changetype<PerksBurnt>(newMockEvent())
-
-  perksBurntEvent.parameters = new Array()
-
-  perksBurntEvent.parameters.push(
-    new ethereum.EventParam("user", ethereum.Value.fromAddress(user))
-  )
-  perksBurntEvent.parameters.push(
-    new ethereum.EventParam("amount", ethereum.Value.fromUnsignedBigInt(amount))
-  )
-
-  return perksBurntEvent
-}
-
 export function createPerksEarnedEvent(
   user: Address,
   amount: BigInt
@@ -112,7 +93,10 @@ export function createPerksRedeemedEvent(
 
 export function createStoreAddedEvent(
   store: Address,
-  rewardFraction: BigInt
+  storeNFT: Address,
+  rewardFraction: BigInt,
+  latitude: BigInt,
+  longitude: BigInt
 ): StoreAdded {
   let storeAddedEvent = changetype<StoreAdded>(newMockEvent())
 
@@ -122,9 +106,24 @@ export function createStoreAddedEvent(
     new ethereum.EventParam("store", ethereum.Value.fromAddress(store))
   )
   storeAddedEvent.parameters.push(
+    new ethereum.EventParam("storeNFT", ethereum.Value.fromAddress(storeNFT))
+  )
+  storeAddedEvent.parameters.push(
     new ethereum.EventParam(
       "rewardFraction",
       ethereum.Value.fromUnsignedBigInt(rewardFraction)
+    )
+  )
+  storeAddedEvent.parameters.push(
+    new ethereum.EventParam(
+      "latitude",
+      ethereum.Value.fromSignedBigInt(latitude)
+    )
+  )
+  storeAddedEvent.parameters.push(
+    new ethereum.EventParam(
+      "longitude",
+      ethereum.Value.fromSignedBigInt(longitude)
     )
   )
 
