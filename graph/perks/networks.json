@@ -1,8 +1,8 @@
 {
   "mumbai": {
-    "PerksVault": {
-      "address": "0x969dA1392C3AE9015713863fea7e042807Bb7db1",
-      "startBlock": 41501443
+    "PerksNFT": {
+      "address": "0x02fb91EDDBBEA7B57051e36f3F3601d34C9533DF",
+      "startBlock": 41501440
     }
   }
 }

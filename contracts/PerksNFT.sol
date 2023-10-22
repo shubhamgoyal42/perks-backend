@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract PerksNFT is ERC721, Ownable {
     uint256 public latestMintedTokenId;
-    mapping(address => uint256 tokenId) public tokens;
+    mapping(address => uint256) public tokens;
 
     constructor() ERC721("PerksNFT", "NFT") Ownable(msg.sender) {
         latestMintedTokenId = 0;

@@ -3,40 +3,31 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: PerksVault
+    name: PerksNFT
     network: mumbai
     source:
-      address: "0x969dA1392C3AE9015713863fea7e042807Bb7db1"
-      abi: PerksVault
-      startBlock: 41501443
+      address: "0x02fb91EDDBBEA7B57051e36f3F3601d34C9533DF"
+      abi: PerksNFT
+      startBlock: 41501440
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
+        - Approval
+        - ApprovalForAll
         - OwnershipTransferred
-        - PaidToStore
-        - PerksEarned
-        - PerksRedeemed
-        - StoreAdded
-        - StoreRemoved
-        - USDCDeposited
+        - Transfer
       abis:
-        - name: PerksVault
-          file: ./abis/PerksVault.json
+        - name: PerksNFT
+          file: ./abis/PerksNFT.json
       eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-        - event: PaidToStore(indexed address,indexed address,uint256)
-          handler: handlePaidToStore
-        - event: PerksEarned(indexed address,uint256)
-          handler: handlePerksEarned
-        - event: PerksRedeemed(indexed address,uint256)
-          handler: handlePerksRedeemed
-        - event: StoreAdded(indexed address,address,uint256,int256,int256)
-          handler: handleStoreAdded
-        - event: StoreRemoved(indexed address)
-          handler: handleStoreRemoved
-        - event: USDCDeposited(indexed address,uint256)
-          handler: handleUSDCDeposited
-      file: ./src/perks-vault.ts
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/perks-nft.ts
