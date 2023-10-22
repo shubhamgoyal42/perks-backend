@@ -23,7 +23,7 @@ contract PerksVault is Ownable {
     mapping(address => uint256) public userUSDCAmount;
     mapping(address => uint256) public storeUsdcAmount;
     mapping(address => bool) public whitelistedStores;
-    mapping(address => uint256) public rewardFraction; // base 10e6
+    mapping(address => uint256) public rewardFraction; // base 1e6
 
     uint256[50] private __gap;
 
