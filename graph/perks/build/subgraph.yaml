@@ -1,6 +1,6 @@
 specVersion: 0.0.5
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: PerksNFT
@@ -20,7 +20,7 @@ dataSources:
         - Transfer
       abis:
         - name: PerksNFT
-          file: ./abis/PerksNFT.json
+          file: PerksNFT/abis/PerksNFT.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,indexed uint256)
           handler: handleApproval
@@ -30,7 +30,7 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: ./src/perks-nft.ts
+      file: PerksNFT/PerksNFT.wasm
   - kind: ethereum
     name: ERC6551Registry
     network: mumbai
@@ -46,11 +46,11 @@ dataSources:
         - AccountCreated
       abis:
         - name: ERC6551Registry
-          file: ./abis/ERC6551Registry.json
+          file: ERC6551Registry/abis/ERC6551Registry.json
       eventHandlers:
         - event: AccountCreated(address,address,uint256,address,uint256,uint256)
           handler: handleAccountCreated
-      file: ./src/erc-6551-registry.ts
+      file: ERC6551Registry/ERC6551Registry.wasm
   - kind: ethereum
     name: ERC6551Account
     network: mumbai
@@ -66,11 +66,11 @@ dataSources:
         - TransactionExecuted
       abis:
         - name: ERC6551Account
-          file: ./abis/ERC6551Account.json
+          file: ERC6551Account/abis/ERC6551Account.json
       eventHandlers:
         - event: TransactionExecuted(indexed address,indexed uint256,bytes)
           handler: handleTransactionExecuted
-      file: ./src/erc-6551-account.ts
+      file: ERC6551Account/ERC6551Account.wasm
   - kind: ethereum
     name: PerksVault
     network: mumbai
@@ -92,7 +92,7 @@ dataSources:
         - USDCDeposited
       abis:
         - name: PerksVault
-          file: ./abis/PerksVault.json
+          file: PerksVault/abis/PerksVault.json
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
@@ -108,7 +108,7 @@ dataSources:
           handler: handleStoreRemoved
         - event: USDCDeposited(indexed address,uint256)
           handler: handleUSDCDeposited
-      file: ./src/perks-vault.ts
+      file: PerksVault/PerksVault.wasm
   - kind: ethereum
     name: StoreNFTFactory
     network: mumbai
@@ -124,11 +124,11 @@ dataSources:
         - StoreNFTCreated
       abis:
         - name: StoreNFTFactory
-          file: ./abis/StoreNFTFactory.json
+          file: StoreNFTFactory/abis/StoreNFTFactory.json
       eventHandlers:
         - event: StoreNFTCreated(indexed address,string,address)
           handler: handleStoreNFTCreated
-      file: ./src/store-nft-factory.ts
+      file: StoreNFTFactory/StoreNFTFactory.wasm
   - kind: ethereum
     name: ApecoinNFT
     network: mumbai
@@ -147,7 +147,7 @@ dataSources:
         - ApecoinNFTTransfer
       abis:
         - name: ApecoinNFT
-          file: ./abis/ApecoinNFT.json
+          file: ApecoinNFT/abis/ApecoinNFT.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,indexed uint256)
           handler: handleApproval
@@ -157,7 +157,7 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: ./src/apecoin-nft.ts
+      file: ApecoinNFT/ApecoinNFT.wasm
   - kind: ethereum
     name: TacobellNFT
     network: mumbai
@@ -176,7 +176,7 @@ dataSources:
         - TacobellNFTTransfer
       abis:
         - name: TacobellNFT
-          file: ./abis/TacobellNFT.json
+          file: TacobellNFT/abis/TacobellNFT.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,indexed uint256)
           handler: handleApproval
@@ -186,4 +186,4 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: ./src/tacobell-nft.ts
+      file: TacobellNFT/TacobellNFT.wasm
