@@ -1,26 +1,8 @@
 {
   "mumbai": {
     "PerksNFT": {
-      "address": "0x02fb91EDDBBEA7B57051e36f3F3601d34C9533DF",
-      "startBlock": 41501440
-    },
-    "ERC6551Registry": {
-      "address": "0x05b4D6B8C6B8b5d360CeB27b3DF48A42069DBE17"
-    },
-    "ERC6551Account": {
-      "address": "0x22c3a4137AE5f347831B30b8435430ae7a9D7D9c"
-    },
-    "PerksVault": {
-      "address": "0x969dA1392C3AE9015713863fea7e042807Bb7db1"
-    },
-    "StoreNFTFactory": {
-      "address": "0xeC85b765aCaA4C35Ee02e40B0720F41C8Be64499"
-    },
-    "ApecoinNFT": {
-      "address": "0x153Ce60fc021FD79AD04AE9C1A7dD3cb3921E619"
-    },
-    "TacobellNFT": {
-      "address": "0x0BD893800bc03053846cF2D719F3E3475fc67C0A"
+      "address": "0x1A813362a95401832D02d8d3B3dA292929b8d395",
+      "startBlock": 41508856
     }
   }
 }

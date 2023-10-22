@@ -2,12 +2,14 @@ import {
   Approval as ApprovalEvent,
   ApprovalForAll as ApprovalForAllEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
+  PerksNFTMinted as PerksNFTMintedEvent,
   Transfer as TransferEvent
 } from "../generated/PerksNFT/PerksNFT"
 import {
   Approval,
   ApprovalForAll,
   OwnershipTransferred,
+  PerksNFTMinted,
   Transfer
 } from "../generated/schema"
 
@@ -49,6 +51,20 @@ export function handleOwnershipTransferred(
   )
   entity.previousOwner = event.params.previousOwner
   entity.newOwner = event.params.newOwner
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+}
+
+export function handlePerksNFTMinted(event: PerksNFTMintedEvent): void {
+  let entity = new PerksNFTMinted(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.to = event.params.to
+  entity.tokenId = event.params.tokenId
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

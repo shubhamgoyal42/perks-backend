@@ -3,6 +3,24 @@
     "PerksNFT": {
       "address": "0xb4F3c8F7fa521B253AFcE5259b1e3833d8f65B36",
       "startBlock": 1784323
+    },
+    "ApecoinNFT": {
+      "address": "0x1CcF28d9cF59a63C4661b50bA68eDA9eA76708Da"
+    },
+    "TacobellNFT": {
+      "address": "0x4520FC2D273c149DAD9307650e1d95DeEB26e907"
+    },
+    "ERC6551Registry": {
+      "address": "0x6f5756Ce3047Cc216c8582B1379E1DD117d720B1"
+    },
+    "ERC6551Account": {
+      "address": "0x198Bd08EcA211Dd56eaE444E6f0eA5F87674f0D4"
+    },
+    "PerksVault": {
+      "address": "0x20BE6670d018D88B25dfB76c5460455bFBa6182a"
+    },
+    "StoreNFTFactory": {
+      "address": "0xBdd032549b746Ca176b1Df9716433CDD259d2223"
     }
   }
 }

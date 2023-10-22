@@ -1,13 +1,13 @@
 {
-  "name": "perks",
+  "name": "perks-mumbai",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ perks",
-    "create-local": "graph create --node http://localhost:8020/ perks",
-    "remove-local": "graph remove --node http://localhost:8020/ perks",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 perks",
+    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ perks-mumbai",
+    "create-local": "graph create --node http://localhost:8020/ perks-mumbai",
+    "remove-local": "graph remove --node http://localhost:8020/ perks-mumbai",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 perks-mumbai",
     "test": "graph test"
   },
   "dependencies": {

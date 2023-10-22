@@ -10,6 +10,8 @@ contract StoreNFT is ERC721, Ownable {
     PerksVault public perksVault;
     string public baseURI;
 
+    event StoreNFTMinted(address indexed store, address indexed to, uint256 tokenId);
+
     constructor(
         string memory _name,
         address _owner,
@@ -27,6 +29,7 @@ contract StoreNFT is ERC721, Ownable {
 
         latestMintedTokenId = latestMintedTokenId + 1;
         _safeMint(to, latestMintedTokenId);
+        emit StoreNFTMinted(address(this), to, latestMintedTokenId);
     }
 
     function tokenURI(

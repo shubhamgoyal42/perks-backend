@@ -8,6 +8,8 @@ contract PerksNFT is ERC721, Ownable {
     uint256 public latestMintedTokenId;
     mapping(address => uint256) public tokens;
 
+    event PerksNFTMinted(address indexed to, uint256 tokenId);
+
     constructor() ERC721("PerksNFT", "NFT") Ownable(msg.sender) {
         latestMintedTokenId = 0;
     }
@@ -17,6 +19,7 @@ contract PerksNFT is ERC721, Ownable {
         latestMintedTokenId = latestMintedTokenId + 1;
         _safeMint(to, latestMintedTokenId);
         tokens[to] = latestMintedTokenId;
+        emit PerksNFTMinted(to, latestMintedTokenId);
     }
 
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {

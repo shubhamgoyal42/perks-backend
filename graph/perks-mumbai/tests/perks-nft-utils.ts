@@ -4,6 +4,7 @@ import {
   Approval,
   ApprovalForAll,
   OwnershipTransferred,
+  PerksNFTMinted,
   Transfer
 } from "../generated/PerksNFT/PerksNFT"
 
@@ -75,6 +76,27 @@ export function createOwnershipTransferredEvent(
   )
 
   return ownershipTransferredEvent
+}
+
+export function createPerksNFTMintedEvent(
+  to: Address,
+  tokenId: BigInt
+): PerksNFTMinted {
+  let perksNftMintedEvent = changetype<PerksNFTMinted>(newMockEvent())
+
+  perksNftMintedEvent.parameters = new Array()
+
+  perksNftMintedEvent.parameters.push(
+    new ethereum.EventParam("to", ethereum.Value.fromAddress(to))
+  )
+  perksNftMintedEvent.parameters.push(
+    new ethereum.EventParam(
+      "tokenId",
+      ethereum.Value.fromUnsignedBigInt(tokenId)
+    )
+  )
+
+  return perksNftMintedEvent
 }
 
 export function createTransferEvent(

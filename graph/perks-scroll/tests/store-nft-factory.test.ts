@@ -5,7 +5,7 @@ import {
   clearStore,
   beforeAll,
   afterAll
-} from "matchstick-as"
+} from "matchstick-as/assembly/index"
 import { Address } from "@graphprotocol/graph-ts"
 import { StoreNFTCreated } from "../generated/schema"
 import { StoreNFTCreated as StoreNFTCreatedEvent } from "../generated/StoreNFTFactory/StoreNFTFactory"
